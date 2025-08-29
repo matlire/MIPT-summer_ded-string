@@ -1,1 +1,1 @@
-gcc -Wall -g -D_GNU_SOURCE -I src/string src/main.c -o dist/main.out && ./dist/main.out
+gcc -Wall -Wextra -I./src src/main.c src/mstdio/mstdio.c src/mstring/mstring.c src/mstdlib/mstdlib.c -o dist/main.out && clear && ./dist/main.out

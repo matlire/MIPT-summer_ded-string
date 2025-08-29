@@ -32,6 +32,10 @@ int main()
     mstrncat(str4, str1, 9);
     str[0] = 'W';
     printf("Original: %s; Copied: %s\n", str, str4);
+
+    char str5[32] = {  };
+    mfgets(str5, 32, stdin);
+    printf("%s", str5);
     
     return 0;
 }

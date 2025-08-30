@@ -1,14 +1,25 @@
 #include "mstring.h"
 
+int mstrcmp(const char *lhs, const char *rhs)
+{
+    while (*lhs && *lhs == *rhs)
+    {
+        lhs++;
+        rhs++;
+    }
+
+    return *(unsigned char *)lhs - *(unsigned char *)rhs;
+}
+
 char *mstrchr(const char *str, int ch)
 {
-    while (*str != '\0')
+    while (*str)
     {
-        if (*str == (char *)ch) return (char *)str;
+        if (*str == ch) return str;
         str++;
     }
 
-    if (ch == '\0') return (char *)str;
+    if (ch == '\0') return str;
 
     return NULL;
 }
@@ -16,11 +27,7 @@ char *mstrchr(const char *str, int ch)
 size_t mstrlen(const char *str)
 {
     size_t l = 0;
-    while (*str != '\0') 
-    {
-        str++;
-        l++;
-    }
+    while (str[l]) l++; 
 
     return l;
 }
@@ -28,7 +35,7 @@ size_t mstrlen(const char *str)
 char *mstrcpy(char *dest, const char *src)
 {
     char *ret = dest;
-    while (*src != '\0')
+    while (*src)
     {
         *dest++ = *src++;
     }
@@ -40,7 +47,7 @@ char *mstrcpy(char *dest, const char *src)
 char *mstrncpy(char *dest, const char *src, size_t count)
 {
     char *ret = dest;
-    while (*src != '\0' && count > 0)
+    while (*src && count > 0)
     {
         *dest++ = *src++;
         count--;
@@ -57,14 +64,17 @@ char *mstrncpy(char *dest, const char *src, size_t count)
 
 char *mstrcat(char *dest, const char *src)
 {
+    if (!dest || !src) return NULL;
+
     char *ret = dest;
     
-    while (*dest != '\0') *dest++;
+    while (*dest) dest++;
 
-    while (*src != '\0')
+    while (*src)
     {
         *dest++ = *src++;
     }
+
     *dest = '\0';
 
     return ret;
@@ -72,21 +82,32 @@ char *mstrcat(char *dest, const char *src)
 
 char *mstrncat(char *dest, const char *src, size_t count)
 {
+    if (!dest || !src || !count || count > mstrlen(src)) return NULL;
+
     char *ret = dest;
     
-    while (*dest != '\0') *dest++;
+    while (*dest) dest++;
 
-    while (*src != '\0' && count > 0)
+    while (*src && count > 0)
     {
         *dest++ = *src++;
         count--;
     }
 
-    while (count > 0)
-    {
-        *dest++ = '\0';
-        count--;
-    }
+    *dest = '\0';
+
+    return ret;
+}
+
+char *mstrdup(const char *str1)
+{
+    if (!str1) return NULL;
+
+    char *ptr = (char *)calloc(mstrlen(str1) + 1, sizeof(char));
+    if (!ptr) return NULL;
+
+    char *ret = ptr;
+    mstrncpy(ptr, str1, mstrlen(str1) + 1);
 
     return ret;
 }

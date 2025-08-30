@@ -1,12 +1,13 @@
 #include "mstring/mstring.h"
 #include "mstdio/mstdio.h"
-#include "mstdlib/mstdlib.h"
+#include <stdlib.h>
+#include <assert.h>
 
 int main()
 {
     char str[] = "Hello World!";
     
-    mputs(str);
+    int i = mputs(str);
     mputs(mstrchr(str, 'o'));
     
     printf("%ld\n", mstrlen(str));
@@ -35,7 +36,22 @@ int main()
 
     char str5[32] = {  };
     mfgets(str5, 32, stdin);
-    printf("%s", str5);
+    printf("Got line: %s", str5);
+
+    char *str6 = mstrdup(str);
+    printf("Duped string: %s\n", str6); 
+    free(str6);
+    str6 = NULL;
+
+    char *str7   = NULL;
+    size_t n     = 0;
+    ssize_t size = mgetline(&str7, &n, stdin);
+    if (size > 0)
+    {
+        printf("Got line: %s\n", str7);
+        free(str7);
+        str7 = NULL;
+    }
     
     return 0;
 }

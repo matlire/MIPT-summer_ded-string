@@ -52,6 +52,14 @@ int main()
         free(str7);
         str7 = NULL;
     }
+
+    char str8[]  = "Hello world purr!";
+    char str9[]  = "world";
+    char str10[] = "urr!";
+    char str11[] = "meow!";
+    printf("Found starting at %c\n", mstrstr_base(str8, str9));
+    printf("Found starting at %c\n", mstrstr_base(str8, str10));
+    printf("Found starting at %c\n", mstrstr_base(str8, str11));
     
     return 0;
 }

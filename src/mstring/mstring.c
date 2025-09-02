@@ -11,7 +11,7 @@ int mstrcmp(const char *lhs, const char *rhs)
     return *(unsigned char *)lhs - *(unsigned char *)rhs;
 }
 
-char *mstrchr(const char *str, int ch)
+char *mstrchr(const char *str, const int ch)
 {
     while (*str)
     {
@@ -24,7 +24,7 @@ char *mstrchr(const char *str, int ch)
     return NULL;
 }
 
-size_t mstrlen(const char *str)
+size_t mstrlen(const char const* str)
 {
     size_t l = 0;
     while (str[l]) l++; 
@@ -110,4 +110,24 @@ char *mstrdup(const char *str1)
     mstrncpy(ptr, str1, mstrlen(str1) + 1);
 
     return ret;
+}
+
+char *mstrstr_base(const char *str, const char *substr)
+{
+    if (!str || !substr || mstrlen(str) < mstrlen(substr)) return NULL;
+    if (!(*substr)) return str;
+
+    for (size_t i = 0; i < mstrlen(str); i++)
+    {
+        if (str[i] == substr[0])
+        {
+            size_t saved = i;
+            size_t exp   = mstrlen(substr);
+            while (str[i] == substr[i - saved] && str[i] && substr[i - saved]) i++;
+            if (i - saved == exp) return (char *)str[saved];
+            i = saved + 1;
+        }
+    }
+
+    return NULL;
 }

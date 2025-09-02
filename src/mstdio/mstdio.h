@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int     mputs  (const char *str);
-char   *mfgets (char *str, int count, FILE *stream);
-ssize_t mgetline(char **lineptr, size_t *n, FILE *stream);
+int     mputs   (const char *str);
+char   *mfgets  (char *str, int count, const FILE const* stream);
+ssize_t mgetline(char **lineptr, size_t *n, const FILE const* stream);
 
 #endif

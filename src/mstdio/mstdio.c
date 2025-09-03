@@ -17,7 +17,7 @@ int mputs(const char *str)
     return str - ret;
 }
 
-char *mfgets(char *str, int count, const FILE const* stream)
+char *mfgets(char *str, int count, const FILE *const stream)
 {
     if (!str || count < 0 || !stream) return NULL;
     if (count == 0) return str;
@@ -41,7 +41,7 @@ char *mfgets(char *str, int count, const FILE const* stream)
     return ret;
 }
 
-ssize_t mgetline(char **lineptr, size_t *n, const FILE const* stream)
+ssize_t mgetline(char **lineptr, size_t *n, const FILE *const stream)
 {
     if (!lineptr || !n || !stream) return -1;
 

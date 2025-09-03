@@ -29,7 +29,7 @@ char *mstrchr(const char *str, const int ch)
     return NULL;
 }
 
-size_t mstrlen(const char const* str)
+size_t mstrlen(const char *const str)
 {
     if (!str) return 0;
 

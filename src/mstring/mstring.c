@@ -2,6 +2,9 @@
 
 int mstrcmp(const char *lhs, const char *rhs)
 {
+    if (!lhs) return 1;
+    if (!rhs) return -1;
+
     while (*lhs && *lhs == *rhs)
     {
         lhs++;
@@ -13,6 +16,8 @@ int mstrcmp(const char *lhs, const char *rhs)
 
 char *mstrchr(const char *str, const int ch)
 {
+    if (!str) return NULL;
+
     while (*str)
     {
         if (*str == ch) return str;
@@ -26,6 +31,8 @@ char *mstrchr(const char *str, const int ch)
 
 size_t mstrlen(const char const* str)
 {
+    if (!str) return 0;
+
     size_t l = 0;
     while (str[l]) l++; 
 
@@ -34,6 +41,8 @@ size_t mstrlen(const char const* str)
 
 char *mstrcpy(char *dest, const char *src)
 {
+    if (!dest || !src || mstrlen(dest) < mstrlen(src)) return NULL;
+
     char *ret = dest;
     while (*src)
     {
@@ -46,6 +55,8 @@ char *mstrcpy(char *dest, const char *src)
 
 char *mstrncpy(char *dest, const char *src, size_t count)
 {
+    if (!dest || !src || count > mstrlen(dest)) return NULL;
+    
     char *ret = dest;
     while (*src && count > 0)
     {
@@ -114,17 +125,21 @@ char *mstrdup(const char *str1)
 
 char *mstrstr_base(const char *str, const char *substr)
 {
-    if (!str || !substr || mstrlen(str) < mstrlen(substr)) return NULL;
+    if (!str || !substr) return NULL;
+    
+    size_t str_len    = mstrlen(str);
+    size_t substr_len = mstrlen(substr);
+
+    if (str_len < substr_len) return NULL;
     if (!(*substr)) return str;
 
-    for (size_t i = 0; i < mstrlen(str); i++)
+    for (size_t i = 0; i < str_len; i++)
     {
         if (str[i] == substr[0])
         {
             size_t saved = i;
-            size_t exp   = mstrlen(substr);
             while (str[i] == substr[i - saved] && str[i] && substr[i - saved]) i++;
-            if (i - saved == exp) return (char *)str[saved];
+            if (i - saved == substr_len) return (char *)str[saved];
             i = saved + 1;
         }
     }

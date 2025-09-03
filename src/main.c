@@ -1,5 +1,6 @@
 #include "mstring/mstring.h"
 #include "mstdio/mstdio.h"
+#include "mstdlib/mstdlib.h"
 #include <stdlib.h>
 #include <assert.h>
 
@@ -59,7 +60,16 @@ int main()
     char str11[] = "meow!";
     printf("Found starting at %c\n", mstrstr_base(str8, str9));
     printf("Found starting at %c\n", mstrstr_base(str8, str10));
-    printf("Found starting at %c\n", mstrstr_base(str8, str11));
+    printf("Found starting at %c\n\n", mstrstr_base(str8, str11));
+
+    // From cpp reference
+    printf("%i\n", matoi(" -123junk"));
+    printf("%i\n", matoi(" +321dust"));
+    printf("%i\n", matoi("0"));
+    printf("%i\n", matoi("0042")); // treated as a decimal number with leading zeros
+    printf("%i\n", matoi("0x2A")); // only leading zero is converted discarding "x2A"
+    printf("%i\n", matoi("junk")); // no conversion can be performed
+    printf("%i\n", matoi("2147483648")); // UB: out of range of int
     
     return 0;
 }
